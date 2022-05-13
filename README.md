@@ -8,12 +8,10 @@
 
 ## :heavy_check_mark: Test Cases:
 > Automation mobile <code>UI</code> tests
-- :white_check_mark: Отображение результатов поиска
-- :white_check_mark: Проверка открытия настроек
-- :white_check_mark: Проверка первых четырех экранов Getting Started
-- Onboarding (4 screens)
-- Search by query
-- Add new language
+- :white_check_mark: Onboarding (4 screens)
+- :white_check_mark: Search by query
+- :white_check_mark: Add new language
+- :white_check_mark: Check language
 
 ## :gear: Technology stack
 
