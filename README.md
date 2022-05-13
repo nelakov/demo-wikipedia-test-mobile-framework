@@ -34,10 +34,11 @@
 ---
 ## :heavy_check_mark: Description
 
-> Automation tests of the onboarding screen in the Wikipedia mobile application.
-> The *_Owner_* library is used to configure the test launch.
-> The device configuration is set in a config file, and when tests running, a parameter is used to select a specific configuration file.
-> The tests work without change to the code base:
+- Automation tests of the onboarding screen in the Wikipedia mobile application.
+- The *_Owner_* library is used to configure the test launch.
+- The device configuration is set in a config file, and when tests running, a parameter is used to select a specific configuration file.
+
+- The tests work without change to the code base:
 
 - [X] Browserstack mobile farm (Remote)
 - [X] Emulator via Android Studio (Local)
