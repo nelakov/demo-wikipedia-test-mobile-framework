@@ -22,10 +22,12 @@ public class TestBase {
         Configuration.browserSize = null;
         addListener("AllureSelenide", new AllureSelenide());
     }
+
     @BeforeEach
     public void startDriver() {
         open();
     }
+
     @AfterEach
     public void afterEach() {
         Attach.screenshotAs("Last screenshot");

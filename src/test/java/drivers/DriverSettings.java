@@ -5,9 +5,11 @@ public class DriverSettings {
         if (deviceProvider.equals("mobile")) {
             return DeviceMobileDriver.class.getName();
         }
+
         if (deviceProvider.equals("browserstack")) {
             return BrowserstackMobileDriver.class.getName();
         }
+
         if (deviceProvider.equals("emulator")) {
             return EmulatorMobileDriver.class.getName();
         }

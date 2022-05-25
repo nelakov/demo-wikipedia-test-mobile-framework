@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="18603532-ff8b-4746-b8a7-72786ec49184" name="Changes" comment="refactoring and add tests / add config file / add README">
+    <list default="true" id="18603532-ff8b-4746-b8a7-72786ec49184" name="Changes" comment="fix driver settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/drivers/DriverSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/drivers/DriverSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +250,10 @@
       <workItem from="1652384714977" duration="5797000" />
       <workItem from="1652390894850" duration="10376000" />
       <workItem from="1652401499739" duration="2978000" />
-      <workItem from="1652404618962" duration="2906000" />
+      <workItem from="1652404618962" duration="3522000" />
+      <workItem from="1652457394889" duration="1421000" />
+      <workItem from="1652484291527" duration="597000" />
+      <workItem from="1652485176840" duration="20000" />
     </task>
     <task id="LOCAL-00001" summary="create build gradle">
       <created>1652048008153</created>
@@ -302,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652406132185</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix driver settings">
+      <created>1652444194340</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1652444194340</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,6 +333,7 @@
     <MESSAGE value="add config class and tests from lesson + change gradle" />
     <MESSAGE value="add test for Wikipedia latest version" />
     <MESSAGE value="refactoring and add tests / add config file / add README" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring and add tests / add config file / add README" />
+    <MESSAGE value="fix driver settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix driver settings" />
   </component>
 </project>
