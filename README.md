@@ -12,9 +12,9 @@ that run _unchanged_ across three environments — BrowserStack cloud, a local e
 ![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk&logoColor=white)
 ![Gradle](https://img.shields.io/badge/Gradle-9.5%20·%20Kotlin%20DSL-02303A?logo=gradle&logoColor=white)
 ![JUnit](https://img.shields.io/badge/JUnit-6-25A162?logo=junit5&logoColor=white)
-![Selenide](https://img.shields.io/badge/Selenide-7.9-1f6feb)
-![Appium](https://img.shields.io/badge/Appium-9.4-662D91?logo=appium&logoColor=white)
-![Allure](https://img.shields.io/badge/Allure-2.29-FF6C37)
+![Selenide](https://img.shields.io/badge/Selenide-7.16-1f6feb)
+![Appium](https://img.shields.io/badge/Appium-10.1-662D91?logo=appium&logoColor=white)
+![Allure](https://img.shields.io/badge/Allure-2.35-FF6C37)
 ![BrowserStack](https://img.shields.io/badge/BrowserStack-cloud-FE5000?logo=browserstack&logoColor=white)
 
 </div>
@@ -36,9 +36,9 @@ that run _unchanged_ across three environments — BrowserStack cloud, a local e
 |---|---|
 | Language / build | Java 25 · Gradle 9.5 (`build.gradle.kts`, Kotlin DSL) |
 | Test runner | JUnit 6 |
-| UI driver | Selenide 7 over Appium 9 (`java-client`, UiAutomator2) |
+| UI driver | Selenide 7 over Appium 10 (`java-client`, UiAutomator2) |
 | Config | Owner |
-| Reporting | Allure 2.29 |
+| Reporting | Allure 2.35 |
 | Cloud devices | BrowserStack |
 | CI | Jenkins |
 
