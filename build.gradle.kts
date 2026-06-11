@@ -10,9 +10,9 @@ repositories {
     mavenCentral()
 }
 
-val allureVersion = "2.29.1"
-val selenideVersion = "7.9.3"
-val appiumVersion = "9.4.0"
+val allureVersion = "2.35.2"
+val selenideVersion = "7.16.2"
+val appiumVersion = "10.1.1"
 val junitVersion = "6.1.0"
 val slf4jVersion = "2.0.18"
 
