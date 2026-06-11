@@ -1,88 +1,114 @@
-## Wikipedia (android mobile app) automated UI tests
+<div align="center">
 
-<p  align="left">
-<code>
-<img width="80%" title="Wiki header" src="images/wikipedia.jpg">
-</code>
-</p>
-/
-## :heavy_check_mark: Test Cases:
-> Automation mobile <code>UI</code> tests
-- :white_check_mark: Onboarding (4 screens)
-- :white_check_mark: Search by query
-- :white_check_mark: Add new language
-- :white_check_mark: Check language
+# 📱 Wikipedia Android — UI Test Automation
 
-## :gear: Technology stack
+**Mobile UI autotests for the [Wikipedia](https://github.com/wikimedia/apps-android-wikipedia) Android app
+that run _unchanged_ across three environments — BrowserStack cloud, a local emulator, or a real device over USB.**
 
-<p  align="left">
-<code>
-<img width="5%" title="IntelliJ IDEA" src="https://starchenkov.pro/qa-guru/img/skills/Intelij_IDEA.svg">
-<img width="5%" title="Java" src="https://starchenkov.pro/qa-guru/img/skills/Java.svg">
-<img width="5%" title="JUnit5" src="https://starchenkov.pro/qa-guru/img/skills/JUnit5.svg">
-<img width="5%" title="Appium" src="https://starchenkov.pro/qa-guru/img/skills/Appium.svg">
-<img width="5%" title="Browserstack" src="https://starchenkov.pro/qa-guru/img/skills/Browserstack.svg">
-<img width="5%" title="Gradle" src="https://starchenkov.pro/qa-guru/img/skills/Gradle.svg">
-<img width="5%" title="Selenoid" src="https://starchenkov.pro/qa-guru/img/skills/Selenoid.svg">
-<img width="5%" title="Github" src="https://starchenkov.pro/qa-guru/img/skills/Github.svg">
-<img width="5%" title="Jenkins" src="https://starchenkov.pro/qa-guru/img/skills/Jenkins.svg">
-<img width="5%" title="Allure Report" src="https://starchenkov.pro/qa-guru/img/skills/Allure_Report.svg">
-<img width="5%" title="Telegram" src="https://starchenkov.pro/qa-guru/img/skills/Telegram.svg">
-</code>
-</p>
+<img src="images/wikipedia.jpg" width="62%" alt="Wikipedia"/>
+
+<br/>
+
+![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-9.5%20·%20Kotlin%20DSL-02303A?logo=gradle&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-6-25A162?logo=junit5&logoColor=white)
+![Selenide](https://img.shields.io/badge/Selenide-7.9-1f6feb)
+![Appium](https://img.shields.io/badge/Appium-9.4-662D91?logo=appium&logoColor=white)
+![Allure](https://img.shields.io/badge/Allure-2.29-FF6C37)
+![BrowserStack](https://img.shields.io/badge/BrowserStack-cloud-FE5000?logo=browserstack&logoColor=white)
+
+</div>
 
 ---
-## :heavy_check_mark: Description
 
-- Automation tests of the onboarding screen in the Wikipedia mobile application.
-- The *_Owner_* library is used to configure the test launch.
-- The device configuration is set in a config file, and when tests running, a parameter is used to select a specific configuration file.
+## ✨ Highlights
 
-- The tests work without change to the code base:
+- 🌍 **One codebase, three targets** — switch with a single `-DdeviceProvider` flag. No code changes.
+- ⚙️ **Config-driven** — devices and credentials live in `.properties`, bound type-safely via the [Owner](https://matteobaccan.github.io/owner/) library.
+- 🧩 **Zero-duplication drivers** — a shared `LocalAndroidDriver` (template method) powers both emulator and real device; subclasses differ only by which config they supply.
+- 📊 **Rich reporting** — Allure with `@Step` annotations plus an automatic screenshot + page source on every test.
+- 🤖 **CI-ready** — a parameterized Jenkins job runs the suite on demand.
+- 🆕 **Modern stack** — Java 25, Gradle 9.5 (Kotlin DSL), JUnit 6, Selenide 7, Appium 9.
 
-- [X] Browserstack mobile farm (Remote)
-- [X] Emulator via Android Studio (Local)
-- [X] Samsung the real mobile device via USB (Local)
+## 🧰 Tech stack
 
+| Layer | Tooling |
+|---|---|
+| Language / build | Java 25 · Gradle 9.5 (`build.gradle.kts`, Kotlin DSL) |
+| Test runner | JUnit 6 |
+| UI driver | Selenide 7 over Appium 9 (`java-client`, UiAutomator2) |
+| Config | Owner |
+| Reporting | Allure 2.29 |
+| Cloud devices | BrowserStack |
+| CI | Jenkins |
 
-## :pilot: How to run tests?
+## ✅ Test coverage
+
+- ✔️ Onboarding screens — header text across all 4 pages
+- ✔️ Search by query
+- ✔️ Add a new language (and verify the languages list grows)
+- ✔️ Verify the active interface language
+
+## 🏗 Architecture
+
+The `deviceProvider` system property selects a Selenide `WebDriverProvider` by class name; Selenide
+instantiates it to build the Appium driver. Local emulator and physical device share one base class.
+
+```mermaid
+flowchart TD
+    A["./gradlew test -DdeviceProvider=…"] --> B{DriverSettings<br/>resolveDriverClassName}
+    B -->|browserstack| C["BrowserstackMobileDriver<br/>(RemoteWebDriver)"]
+    B -->|emulator| D[EmulatorMobileDriver]
+    B -->|mobile| E[DeviceMobileDriver]
+    D --> F["LocalAndroidDriver<br/>UiAutomator2 · AndroidDriver"]
+    E --> F
+    C --> G[("BrowserStack cloud")]
+    F --> H[("Appium server :4723")]
+    A -. "@Step / @Attachment" .-> I[["Allure report"]]
 ```
-In the resources/configuration directory, 
-there are config files with parameters for launch tests 
-in browserstack / emulator/ mobile environments
-```
-### Example for Browserstack
-- Create config file for Browserstack
 
-``
-src/test/resources/config/browserstack.properties
-``
-- Add data
-```bash
-  user=wixavixdmosoftco_f8IUCT (from Browserstack)
-  key=GDBsxkqPopnGtvbwhoLM (from Browserstack)
-  app=bs://44fe6139d9a4b992f48376b347c58bcab9dc1d63 (Upload your .APK file to Browserstack then give your app)
-  device=Samsung Galaxy S22 Plus (any mobile in the Browserstack)
-  os_version=12.0 
-  project=First Java Project (any)
-  build=browserstack-build-1 (any)
-  name=first_test (any)
-  url=http://hub.browserstack.com/wd/hub 
+## 📂 Project structure
+
+```
+src/test/java
+├── config/        # Owner config interfaces (LocalAndroidConfig, *Config) + Credentials factory
+├── drivers/       # DriverSettings selector + WebDriverProviders (template method)
+├── helpers/       # Attach — Allure screenshot & page-source attachments
+├── tests/         # TestBase (lifecycle) + WikipediaAppiumTests
+└── tests/steps/   # WikiSteps — @Step-annotated page actions
 ```
 
-### <img width="5%" title="Browserstack" src="https://starchenkov.pro/qa-guru/img/skills/Browserstack.svg"> Browserstack
+## 🚀 Getting started
 
-```bash 
-gradle clean test -DdeviceProvider=browserstack
+### Prerequisites
+
+- **JDK 25** (Gradle resolves the toolchain automatically)
+- For local runs (`emulator` / `mobile`): an **Appium server on port 4723** and an Android emulator or a USB-connected device
+
+### 1. Create the config file
+
+Config `.properties` are **git-ignored** — create the one for your target. The APK auto-downloads if missing.
+
+<details>
+<summary><b>BrowserStack</b> — <code>src/test/resources/config/browserstack.properties</code></summary>
+
+```properties
+user=YOUR_BROWSERSTACK_USER
+key=YOUR_BROWSERSTACK_KEY
+app=bs://<uploaded-app-id>
+device=Samsung Galaxy S22 Plus
+os_version=12.0
+project=Wikipedia Mobile
+build=browserstack-build-1
+name=wiki-suite
+url=https://hub.browserstack.com/wd/hub
 ```
-### Example for Emulator
+</details>
 
-- Create config file for Emulator
-``
-src/test/resources/emulator.properties
-``
-- Add data
-```bash
+<details>
+<summary><b>Emulator</b> — <code>src/test/resources/emulator.properties</code> (resources <b>root</b>)</summary>
+
+```properties
 platformName=Android
 deviceName=Pixel_4_API_30
 platformVersion=11.0
@@ -94,95 +120,55 @@ appUrl=https://github.com/wikimedia/apps-android-wikipedia/releases/download/lat
 appPath=src/test/resources/apk/app-alpha-universal-release.apk
 serverUrl=http://localhost:4723/wd/hub
 ```
-<p  align="left">
-<code>
-<img width="80%" title="Browserstack tests" src="images/Browserstack.gif">
-</code>
-</p>
+</details>
 
-### <img width="5%" title="Android" src="https://cdn.worldvectorlogo.com/logos/android-studio-1.svg"> Emulator via Android Studio
+<details>
+<summary><b>Real device</b> — <code>src/test/resources/config/samsung.properties</code> (same keys as emulator)</summary>
 
-- Launch Appium on port 4723
-
-```bash 
-gradle clean test -DdeviceProvider=emulator
+```properties
+platformName=Android
+deviceName=<your device name from `adb devices`>
+platformVersion=<android version>
+locale=en
+language=en
+appPackage=org.wikipedia.alpha
+appActivity=org.wikipedia.main.MainActivity
+appUrl=https://github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk?raw=true
+appPath=src/test/resources/apk/app-alpha-universal-release.apk
+serverUrl=http://localhost:4723/wd/hub
 ```
-<p  align="left">
-<code>
-<img width="80%" title="Emulator tests" src="images/EmulatorDeviceTests.gif">
-</code>
-</p>
+</details>
 
+> ⚠️ Paths match the `@Config.Sources` annotations in `config/*.java`. The emulator file lives at the
+> resources **root**; BrowserStack and Samsung configs live under `config/`.
 
+### 2. Run
 
-### Example for Mobile the same how like Emulator
-
-- Create config file for Emulator
-  ``
-  src/test/resources/config/samsung.properties
-  ``
-### <img width="5%" title="Mobile" src="https://www.iconninja.com/files/111/795/698/samsung-galaxy-s-icon.png"> Samsung the real mobile device via USB
-
-- Launch Appium on port 4723
-
-```bash 
-gradle clean test -DdeviceProvider=mobile
+```bash
+./gradlew clean test -DdeviceProvider=browserstack   # remote BrowserStack farm
+./gradlew clean test -DdeviceProvider=emulator       # local Android emulator
+./gradlew clean test -DdeviceProvider=mobile         # real device over USB
 ```
-<p  align="left">
-<code>
-<img width="80%" title="Mobile tests" src="images/MobileDeviceTests.gif">
-</code>
-</p>
 
+| BrowserStack | Emulator | Real device |
+|:---:|:---:|:---:|
+| <img src="images/Browserstack.gif" width="260"/> | <img src="images/EmulatorDeviceTests.gif" width="260"/> | <img src="images/MobileDeviceTests.gif" width="260"/> |
 
-[To table of contents ⬆](#table of contents)
+## 📈 Allure report
 
-### Usually, tests run on Browserstack or Selenoid via Appium.
+```bash
+allure serve build/allure-results
+```
 
->Appium is an open source test automation framework for use with native, hybrid and mobile web apps. It drives iOS, Android, and Windows apps using the WebDriver protocol.
+| Overview | Test result |
+|:---:|:---:|
+| <img src="images/img.png" width="420"/> | <img src="images/result.png" width="420"/> |
 
->Browserstack is cloud web and mobile testing platform that provides developers with the ability to test their websites and mobile applications across on-demand browsers, operating systems and real mobile devices.
+## 🔧 CI — Jenkins
 
->Selenoid is one of implementation of original Selenium hub. It is using Docker to launch browsers.
+A parameterized job runs the suite against any environment.
+**[▶ Open the Jenkins job](https://jenkins.autotests.cloud/job/nelakov-demo-browserstack-demo/)**
 
-
-# <img width="5%" title="Jenkins" src="https://starchenkov.pro/qa-guru/img/skills/Jenkins.svg"> Jenkins
->Jenkins – an open source automation server which enables developers around the world to reliably build, test, and deploy their software
-
-## Jenkins job
-Example of Jenkins job that executes tests
-<a target="_blank" href="https://jenkins.autotests.cloud/job/nelakov-demo-browserstack-demo/">click here to open jenkins job</a>
-<p  align="left">
-<code>
-<img width="80%" title="Jenkins-params" src="images/jenkins.png">
-</code>
-</p>
-## Jenkins parameters
-You can change this params to run test on different environments, servers, etc...
-
-<p  align="left">
-<code>
-<img width="80%" title="Jenkins-params" src="images/jenkins_param.png">
-</code>
-</p>
-
-# :bar_chart: Allure
-> Allure Framework is a flexible lightweight multi-language test report tool that not only shows a very concise representation of what have been tested in a neat web report form, but allows everyone participating in the development process to extract maximum of useful information from everyday execution of tests.
-
-
-## Allure overview
-> Different charts, metrics and statistic to easily analyze tests result
-<p  align="left">
-<code>
-<img width="80%" title="Allure overview" src="images/img.png">
-</code>
-</p>
-
-## Allure test result
-> Here is a result of test executing.
-<p  align="left">
-<code>
-<img width="80%" title="Allure test result" src="images/result.png">
-</code>
-</p>
-
+| Job | Parameters |
+|:---:|:---:|
+| <img src="images/jenkins.png" width="420"/> | <img src="images/jenkins_param.png" width="420"/> |
