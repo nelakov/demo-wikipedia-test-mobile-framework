@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.steps.WikiSteps;
 
-import java.net.MalformedURLException;
 import static com.codeborne.selenide.Selenide.*;
 
 public class WikipediaAppiumTests extends TestBase {
@@ -21,7 +20,7 @@ public class WikipediaAppiumTests extends TestBase {
         steps.addNewLanguageInTheLanguageList();
         steps.chooseLanguage();
         steps.checkLanguage();
-        steps.tapbackButton();
+        steps.tapBackButton();
         steps.checkListSize();
     }
 
@@ -45,10 +44,10 @@ public class WikipediaAppiumTests extends TestBase {
     @Feature("Wiki App Mobile")
     @Owner("ElakovNick")
     @Severity(SeverityLevel.CRITICAL)
-    void searchTest() throws MalformedURLException, InterruptedException {
+    void searchTest() {
         back();
         steps.searchWikiClick();
-        steps.sendKeys("Appium");
+        steps.typeSearchQuery("Appium");
         steps.assertResultsExist();
     }
 
@@ -57,10 +56,10 @@ public class WikipediaAppiumTests extends TestBase {
     @Feature("Wiki App Mobile")
     @Owner("ElakovNick")
     @Severity(SeverityLevel.NORMAL)
-    void checkLanguage() throws MalformedURLException, InterruptedException {
+    void checkLanguage() {
         back();
         steps.searchWikiClick();
-        steps.sendKeys("Appium");
+        steps.typeSearchQuery("Appium");
         steps.assertLanguageIsEN();
     }
 }

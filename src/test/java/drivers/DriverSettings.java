@@ -1,18 +1,19 @@
 package drivers;
 
-public class DriverSettings {
-    public static String getDeviceProvider(String deviceProvider) {
-        if (deviceProvider.equals("mobile")) {
-            return DeviceMobileDriver.class.getName();
-        }
+public final class DriverSettings {
+    private DriverSettings() {
+    }
 
-        if (deviceProvider.equals("browserstack")) {
-            return BrowserstackMobileDriver.class.getName();
+    public static String resolveDriverClassName(String deviceProvider) {
+        if (deviceProvider == null || deviceProvider.isBlank()) {
+            throw new IllegalArgumentException(
+                    "System property 'deviceProvider' is required: emulator | browserstack | mobile");
         }
-
-        if (deviceProvider.equals("emulator")) {
-            return EmulatorMobileDriver.class.getName();
-        }
-        throw new RuntimeException("Didn't select device");
+        return switch (deviceProvider) {
+            case "emulator" -> EmulatorMobileDriver.class.getName();
+            case "browserstack" -> BrowserstackMobileDriver.class.getName();
+            case "mobile" -> DeviceMobileDriver.class.getName();
+            default -> throw new IllegalArgumentException("Unknown deviceProvider: " + deviceProvider);
+        };
     }
 }
