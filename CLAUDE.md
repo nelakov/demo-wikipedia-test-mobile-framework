@@ -41,8 +41,8 @@ Flow: `TestBase.setup()` → `DriverSettings.resolveDriverClassName(deviceProvid
 
 ## Dependencies (build.gradle.kts)
 
-selenide `7.9.3`, appium-java-client `9.4.0`, junit-jupiter `6.1.0`, owner `1.0.12`,
-allure `2.29.1` (+ allure-selenide, aspectjWeaver on), commons-io `2.22.0`,
+selenide `7.16.2`, appium-java-client `10.1.1`, junit-jupiter `6.1.0`, owner `1.0.12`,
+allure `2.35.2` (+ allure-selenide, aspectjWeaver on), commons-io `2.22.0`,
 slf4j-simple `2.0.18`. Allure Gradle plugin `4.1.0`.
 Java 25 toolchain pinned (`java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }`).
 
@@ -80,3 +80,7 @@ test (guarded — skipped when no driver started).
   `src/test/resources/apk/app-alpha-universal-release.apk`.
 - Locators are tied to the Wikipedia **alpha** package (`org.wikipedia.alpha:id/...`); an app
   update can break `WikiSteps`.
+- **JUnit 6 + Allure**: the `AllureJunitPlatform` listener logs a `WARNING` on
+  `reportingEntryPublished` under JUnit Platform 6 (Allure ecosystem lag). Non-fatal — JUnit
+  isolates listener errors; tests still run and report. Drop `junitVersion` to latest 5.x if it
+  becomes a problem.
