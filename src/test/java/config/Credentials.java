@@ -2,8 +2,14 @@ package config;
 
 import org.aeonbits.owner.ConfigFactory;
 
-public class Credentials {
-    public static BrowserStackConfig configBrowserstack = ConfigFactory.create(BrowserStackConfig.class);
-    public static EmulatorConfig configEmulator = ConfigFactory.create(EmulatorConfig.class, System.getProperties());
-    public static SamsungMobileConfig configSamsung = ConfigFactory.create(SamsungMobileConfig.class, System.getProperties());
+public final class Credentials {
+    private Credentials() {
+    }
+
+    public static final BrowserStackConfig configBrowserstack =
+            ConfigFactory.create(BrowserStackConfig.class);
+    public static final EmulatorConfig configEmulator =
+            ConfigFactory.create(EmulatorConfig.class, System.getProperties());
+    public static final SamsungMobileConfig configSamsung =
+            ConfigFactory.create(SamsungMobileConfig.class, System.getProperties());
 }
