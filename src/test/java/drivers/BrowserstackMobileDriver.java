@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 
 public class BrowserstackMobileDriver implements WebDriverProvider {
@@ -24,16 +25,17 @@ public class BrowserstackMobileDriver implements WebDriverProvider {
         mutableCapabilities.setCapability("os_version", Credentials.configBrowserstack.osVersion());
         mutableCapabilities.setCapability("project", Credentials.configBrowserstack.project());
         mutableCapabilities.setCapability("build", Credentials.configBrowserstack.build());
-        mutableCapabilities.setCapability("name", Credentials.configBrowserstack.app());
+        mutableCapabilities.setCapability("name", Credentials.configBrowserstack.name());
 
-        return new RemoteWebDriver(getBrowserstackUrl(), mutableCapabilities);
+        return new RemoteWebDriver(browserstackUrl(), mutableCapabilities);
     }
 
-    public static URL getBrowserstackUrl() {
+    private static URL browserstackUrl() {
+        String url = Credentials.configBrowserstack.url();
         try {
-            return new URL(Credentials.configBrowserstack.url());
+            return URI.create(url).toURL();
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Invalid BrowserStack URL: " + url, e);
         }
     }
 }
