@@ -5,7 +5,7 @@
 <img width="80%" title="Wiki header" src="images/wikipedia.jpg">
 </code>
 </p>
-
+/
 ## :heavy_check_mark: Test Cases:
 > Automation mobile <code>UI</code> tests
 - :white_check_mark: Onboarding (4 screens)
@@ -79,7 +79,7 @@ gradle clean test -DdeviceProvider=browserstack
 
 - Create config file for Emulator
 ``
-src/test/resources/config/emulator.properties
+src/test/resources/emulator.properties
 ``
 - Add data
 ```bash
@@ -119,7 +119,7 @@ gradle clean test -DdeviceProvider=emulator
 
 - Create config file for Emulator
   ``
-  src/test/resources/config/mobile.properties
+  src/test/resources/config/samsung.properties
   ``
 ### <img width="5%" title="Mobile" src="https://www.iconninja.com/files/111/795/698/samsung-galaxy-s-icon.png"> Samsung the real mobile device via USB
 
